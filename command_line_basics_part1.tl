@@ -47,6 +47,7 @@ while : ; do
   dateline=`echo "$pane_contents" | grep -v '^$' | tail -2 | head -1`
 
   # Check that it ends with a space and four digits
+  # Leave the loop if the date format seems OK
   echo $dateline | grep -s ' [0-9][0-9][0-9][0-9]$'
   if [ "$?" -eq 0 ]; then break; fi
 
