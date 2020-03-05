@@ -87,7 +87,7 @@ EOF
 get_Enter "Click back in this pane and hit the <Enter> key to continue: "
 
 # Clear the bottom pane
-send_cmd_to_pane 1 clear
+send_cmd_to_pane 1 clear Enter
 
 # Make a file with well-known contents
 cat > tlearn_text_file <<EOF

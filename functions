@@ -7,12 +7,13 @@ function window_size_atleast() {
   local cols=$1
   local rows=$2
   local not_warned=1
-  while true; do
+
+  # Loop apparently forever
+  while : ; do
     local curr_cols=`tput cols`
     local curr_rows=`tput lines`
-    if [ $curr_rows -ge $rows -a $curr_cols -ge $cols ]; then
-      break
-    fi
+    # Exit loop when window is big enough
+    if [ $curr_rows -ge $rows -a $curr_cols -ge $cols ]; then break; fi
     if [ $not_warned -eq 1 ]; then
       echo "Please resize your terminal window"
       echo "to at least $cols columns by $rows rows."
@@ -57,6 +58,7 @@ function get_Enter() {
 }
 
 # Send a Bash command to a given pane
+# End with the word Enter to add an <Enter>
 function send_cmd_to_pane() {
-  tmux send-keys -t $* Enter
+  tmux send-keys -t $*
 }
