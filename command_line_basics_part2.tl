@@ -167,5 +167,6 @@ get_Enter "Hit the <Enter> key to end the lesson: "
 
 # End the tmux session: close the two panes down.
 # Clean up temporary files.
+rm -f tlearn_text_file
 end_tmux_session
 exit 0
