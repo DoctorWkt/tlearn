@@ -55,3 +55,8 @@ function get_Enter() {
   local i
   echo -n "$1"; read i
 }
+
+# Send a Bash command to a given pane
+function send_cmd_to_pane() {
+  tmux send-keys -t $* Enter
+}

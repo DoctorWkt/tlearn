@@ -17,14 +17,14 @@ ul=`tput smul`; noul=`tput rmul`
 
 clear
 cat <<EOF
-Welcome to the first lesson on Unix/Linux command-line basics. In this lesson,
-we will show you how to enter simple commands at the command line.
+Welcome to the first lesson on Unix/Linux command-line basics. In this
+lesson, we will show you how to enter simple commands at the command line.
 
 This window is broken into two panes. You will see instructions in the top
 pane and you will enter commands at the command line in the bottom pane.
 
-You should see a line of text ending with the dollar sign $ below. This is
-the command line prompt. It is waiting for you to type in a command.
+You should see a line of text ending with the dollar sign $ below. This
+is the command line prompt. It is waiting for you to type in a command.
 
 EOF
 get_Enter "Hit the <Enter> key to continue: "
@@ -86,6 +86,56 @@ to see what happens when you forget the spaces between things.
 EOF
 get_Enter "Click back in this pane and hit the <Enter> key to continue: "
 
+# Clear the bottom pane
+send_cmd_to_pane 1 clear
+
+# Make a file with well-known contents
+cat > tlearn_text_file <<EOF
+This is a small text file with a
+number of lines of text which
+was created by the tlearn tool.
+EOF
+
+clear
+cat <<EOF
+Now let's look at the command used to list the contents of a directory: ${ul}ls${noul}.
+(A ${ul}directory${noul} is another name for a ${ul}folder${noul} of files).
+
+Click on the bottom pane and enter the command ${ul}/bin/ls${noul} at the command prompt.
+That's a lower-case L, not a one digit, before the 's' character. You should
+see a list of files that are in your current directory.
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
+clear
+cat <<EOF
+${ul}/bin/ls${noul} with no arguments shows all the files that are in the current
+directory. To see more details about each file, e.g. its size, permissions and
+ownership, you can run the command with the ${ul}-l${noul} option, to tell ${ul}ls${noul}
+to give a long listing for each file. That's a lower-case L, not a one digit!
+
+Click on the bottom pane and enter the command ${ul}/bin/ls -l${noul}.
+
+You should see a list of files. Each line shows the details for one file.
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
+clear
+cat <<EOF
+Let's look at the information that ${ul}ls -l${noul} gives for one
+file which we created for this lesson, ${ul}tlearn_text_file${noul}:
+
+-rw-r--r-- 1 wkt wkt    95 Mar  5 11:28 tlearn_text_file
+                        ^         ^         ^
+                        |         |         |
+                        |         |      file's name
+    size of the file in bytes   date the file was last modified
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
 clear
 cat <<EOF
 That's all for this lesson. Now you can explore
@@ -94,6 +144,8 @@ the other ${ul}tlearn${noul} lessons.
 EOF
 get_Enter "Hit the <Enter> key to end the lesson: "
 
-# End the tmux session: close the two panes down
+# End the tmux session: close the two panes down.
+# Clean up temporary files.
 end_tmux_session
+rm -f tlearn_text_file
 exit 0
