@@ -145,7 +145,7 @@ run the command with the ${ul}-l${noul} option.
 To find out, enter the command ${ul}alias ls${noul} at the command prompt below.
 
 If you see something like ${ul}alias ls='ls -lL'${noul}, then this means that when you
-type ${ul}ls${noul}, it gets converted into ${ul}ls -lL${noul}. Try it!
+type ${ul}ls${noul} by itself, it gets converted into ${ul}ls -lL${noul}. Try it!
 
 EOF
 get_Enter "Click back in this pane and hit the <Enter> key to continue: "
@@ -184,7 +184,7 @@ if you have files called file1, file2 and file3, you could do:
 ${ul}cat file1 file2 file3${noul}
 
 to see the contents of all three files, one after the other. Why this is
-useful we we see in the future.
+useful we see in the future.
 
 EOF
 get_Enter "Click back in this pane and hit the <Enter> key to continue: "
@@ -241,6 +241,6 @@ get_Enter "Hit the <Enter> key to end the lesson: "
 
 # End the tmux session: close the two panes down.
 # Clean up temporary files.
-end_tmux_session
 rm -f tlearn_text_file
+end_tmux_session
 exit 0
