@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# tlearn: an interactive tool to learn Unix/Linux
+# concepts and skills at the command line.
+# (c) 2020, Warren Toomey, GPL3
+#
+# Global variables
+tlearndir='/usr/local/share/tlearn'		# Location of the tlearn dir
+tlearndir=`pwd`					# Test area, for now
+
+# Print out the list of known lessons
+function print_lesson_list() {
+  echo "Available lessons:"
+  ls $tlearndir | grep '\.tl$' | sed 's/.*\///;s/\.tl//;s/^/  /'
+}
+
+
+## MAIN PROGRAM ##
+
+# Ensure that several binaries are installed
+for i in tmux tput; do
+  binfile=`which $i`
+  if [ ! -x "$binfile" ]; then
+    echo "You need to install the '$binfile' program to use tlearn."
+    exit 1
+  fi
+done
+
+# Ensure that the tlearn functions file exists
+if [ ! -f "$tlearndir/functions" ]; then
+  echo "The tlearn functions file does not exist!"
+  exit 1
+fi
+
+# If no arguments, print out the list of lessons and some usage
+if [ "$#" -ne 1 ]; then
+  echo "Usage: tlearn <lesson_name>"; echo
+  print_lesson_list
+  echo; echo "For example, to see the command_line_basics_part1 lesson, type"
+  echo 'the two words tlearn command_line_basics_part1 at the $ prompt.'
+  exit 1
+fi
+
+# Ensure that the given lesson executable exists. Get rid of slashes
+lesson=`basename $1`
+if [ ! -x "$tlearndir/$lesson.tl" ]; then
+  echo "The lesson named $1 does not exist, sorry."
+  exit 1
+fi
+
+# Launch the lesson with the tlearn dir and the lesson name
+tmux new-session $tlearndir/$lesson.tl $tlearndir $lesson
+exit 0

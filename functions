@@ -1,0 +1,57 @@
+# Functions for the tlearn system
+# (c) 2020 Warren Toomey, GPL3
+
+# Wait for the terminal size to be at
+# least the requested cols/rows size.
+function window_size_atleast() {
+  local cols=$1
+  local rows=$2
+  local not_warned=1
+  while true; do
+    local curr_cols=`tput cols`
+    local curr_rows=`tput lines`
+    if [ $curr_rows -ge $rows -a $curr_cols -ge $cols ]; then
+      break
+    fi
+    if [ $not_warned -eq 1 ]; then
+      echo "Please resize your terminal window"
+      echo "to at least $cols columns by $rows rows."
+      not_warned=0
+    fi
+    sleep 1
+  done
+}
+
+# Initialise the tmux session
+function init_tmux_session() {
+  tmux set status off
+  tmux setw -g aggressive-resize on
+  tmux set -g mouse on
+}
+
+# Create a new pane with a given number of rows.
+# Optional arguments specify the command to run.
+function new_pane() {
+  tmux split-window -l $*
+}
+
+# Finish a tmux session
+function end_tmux_session() {
+  tmux kill-window
+}
+
+# Select (give focus to) a specific pane
+function select_pane() {
+  tmux select-pane -t $1
+}
+
+# Return the contents of the given pane
+function get_pane_contents() {
+  tmux capture-pane -p -t $1
+}
+
+# Prompt the user to hit the Enter key
+function get_Enter() {
+  local i
+  echo -n "$1"; read i
+}
