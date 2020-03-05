@@ -138,8 +138,103 @@ get_Enter "Click back in this pane and hit the <Enter> key to continue: "
 
 clear
 cat <<EOF
-That's all for this lesson. Now you can explore
-the other ${ul}tlearn${noul} lessons.
+It's very likely that the Linux system you are using has set up an "alias"
+so that, whenever you type in the ${ul}ls${noul} command, you actually
+run the command with the ${ul}-l${noul} option.
+
+To find out, enter the command ${ul}alias ls${noul} at the command prompt below.
+
+If you see something like ${ul}alias ls='ls -lL'${noul}, then this means that when you
+type ${ul}ls${noul}, it gets converted into ${ul}ls -lL${noul}. Try it!
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
+clear
+cat <<EOF
+The ${ul}options${noul} to a command start with a minus sign, and they modify
+the command's behaviour (e.g. to tell ${ul}ls${noul} to do long listings).
+The ${ul}arguments${noul} come after the options and tell the command what to
+work on.
+
+Try this command at the command prompt below: ${ul}ls -l tlearn_text_file${noul}
+This does a long listing on the ${ul}tlearn_text_file${noul} only.
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
+clear
+cat <<EOF
+It's time to learn another command. To see the contents of one or more files,
+use the ${ul}cat${noul} command. At the prompt below, enter the command:
+
+${ul}cat tlearn_text_file${noul}
+
+This will show you the contents of the ${ul}tlearn_text_file${noul}.
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
+clear
+cat <<EOF
+The ${ul}cat${noul} command actually stands for "concatenate". It will
+join and output several files which are named as arguments. For example,
+if you have files called file1, file2 and file3, you could do:
+
+${ul}cat file1 file2 file3${noul}
+
+to see the contents of all three files, one after the other. Why this is
+useful we we see in the future.
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
+clear
+cat <<EOF
+Another useful command is ${ul}wc${noul}. This counts words, lines and
+the number of bytes of the files named as arguments. Try this command at
+the prompt below: ${ul}wc tlearn_text_file${noul}
+
+You should see three numbers as the result: the number of lines in the file,
+the number of words in the file and the file's byte size.
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
+clear
+cat <<EOF
+The ${ul}wc${noul} command has three options: ${ul}-l${noul}, ${ul}-w${noul}
+and ${ul}-c${noul}. Try each of these three commands below and see if you can
+work out what each one does:
+
+${ul}wc -l tlearn_text_file${noul}
+${ul}wc -w tlearn_text_file${noul}
+${ul}wc -c tlearn_text_file${noul}
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
+clear
+cat <<EOF
+When you read the manual pages for Unix/Linux commands, the optional parts
+are shown in square brackets [ ]. If there are many single-letter options
+starting with a minus sign, they are shown consecutively. If the command
+takes an arbitrary number of arguments, this is shown with three dots ...
+Using this information, can you understand the syntax for these commands?
+
+date                       echo word ...          cat file ...
+ls [-l] [file1 ...]        wc [-lwc] file1 ...
+
+EOF
+get_Enter "Click back in this pane and hit the <Enter> key to continue: "
+
+clear
+cat <<EOF
+That's all for this lesson on the command line. You now know five useful
+command-line commands and how to run them. Use this knowledge and practice
+these commands with their options and some arguments.
+
+Now you can explore the other ${ul}tlearn${noul} lessons.
 
 EOF
 get_Enter "Hit the <Enter> key to end the lesson: "
