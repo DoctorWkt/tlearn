@@ -62,3 +62,11 @@ function get_Enter() {
 function send_cmd_to_pane() {
   tmux send-keys -t $*
 }
+
+# Get the last line of output from the command
+# pane: it's the second last non-blank line from
+# pane 1.
+function get_cmd_output() {
+  local pane_contents="$(get_pane_contents 1)"
+  echo "$pane_contents" | grep -v '^$' | tail -2 | head -1
+}

@@ -7,16 +7,15 @@ source "$tlearndir/functions"
 window_size_atleast 80 34
 
 # Initialise the tmux session
-# and create a 24-row pane.
+# and create a 23-row pane.
 # Keep focus in original pane.
-init_tmux_session; new_pane 24; select_pane 0
+init_tmux_session; new_pane 23; select_pane 0
 
 # Get some escape sequences for bold and underline
-bold=`tput smso`; nobold=`tput rmso`
+bo=`tput smso`; nobo=`tput rmso`
 ul=`tput smul`; noul=`tput rmul`
 
-clear
-cat <<EOF
+clear; cat <<EOF
 Welcome to the second lesson on Unix/Linux command-line basics. In this
 lesson, we will explore how to edit what you have typed on the command
 line, and also some techniques to make you more efficient at using the
@@ -29,12 +28,11 @@ and the L key at the same time. This is known as a "control L" character.
 EOF
 get_Enter "Click in this pane and hit the <Enter> key to continue: "
 
-clear
-cat <<EOF
-At the command prompt below, type in a few commands like ${ul}date${noul} and ${ul}ls${noul}, just so
-there is some text in the bottom pane.
+clear; cat <<EOF
+At the command prompt below, type in a few commands like ${bo}date${nobo} and ${bo}ls${nobo},
+just so there is some text in the bottom pane.
 
-Now type ctrl-L at the command prompt. You should see all the text disappear
+Now type ${ul}ctrl-L${noul} at the command prompt. You should see all the text disappear
 and you are left with a new command prompt. This is how you can clear the
 text from your command window.
 
@@ -44,9 +42,8 @@ get_Enter "Click back in this pane and hit the <Enter> key to continue: "
 # Put some text on the user's command line
 send_cmd_to_pane 1 echo Space appel Space bannana Space chery Space oRange Space Mayngo
 
-clear
-cat <<EOF
-Now it's time to learn how to edit on the command line. I've added an ${ul}echo${noul}
+clear; cat <<EOF
+Now it's time to learn how to edit on the command line. I've added an ${bo}echo${nobo}
 command at your command prompt, with the names of the fruit misspelled. Use
 the left and right arrow keys, the backspace and delete keys to correct the
 spelling for the five types of fruit. Ensure all the letters are lowercase.
@@ -60,9 +57,8 @@ get_Enter "Click back in this pane and hit the <Enter> key to continue: "
 # Loop to confirm that they correctly edited the line
 while : ; do
 
-  # Get the second-last last non-empty text line from the bash pane
-  pane_contents="$(get_pane_contents 1)"
-  echoline=`echo "$pane_contents" | grep -v '^$' | tail -2 | head -1`
+  # Get the output from the echo command
+  echoline=$(get_cmd_output)
 
   # Leave the loop if the text matches
   if [ "$echoline" = "apple banana cherry orange mango" ]; then break; fi
@@ -70,7 +66,7 @@ while : ; do
   clear
   cat <<EOF
 Hmm, it looks like you didn't edit the command line correctly. I want to
-see the ${ul}echo${noul} command display this on the screen:
+see the ${bo}echo${nobo} command display this on the screen:
 
                      apple banana cherry orange mango
 
@@ -82,8 +78,7 @@ EOF
   sleep 1
 done
 
-clear
-cat <<EOF
+clear; cat <<EOF
 The up arrow can be used to go back through the list of commands that you
 have previously typed in. Once you have a line loaded at the command prompt,
 you can hit <Enter> to run it again.
@@ -96,24 +91,22 @@ old commands.
 EOF
 get_Enter "Click back in this pane and hit the <Enter> key to continue: "
 
-clear
-cat <<EOF
-The ${ul}history${noul} command lists all of your previous commands, and
-each one is given a consecutive number. Try this out at the command prompt.
+clear; cat <<EOF
+The ${bo}history${nobo} command lists all of your previous commands, and each one is
+given a consecutive number. Try this out at the command prompt.
 
 As as short-cut, let's assume that you want to re-run the command with the
-number 25 in your history. At your command prompt, you can type in ${ul}!25${noul} to
+number 25 in your history. At your command prompt, you can type in ${bo}!25${nobo} to
 re-run command number 25. Try this out at the command prompt below.
 
 EOF
 get_Enter "Click back in this pane and hit the <Enter> key to continue: "
 
-clear
-cat <<EOF
-You can also type in ${ul}!da${noul} at the command prompt to re-run the most recent
-command that started with "da". However, make sure this is really the command
-that you want! You may accidentally run the wrong command and delete your files
-or data.
+clear; cat <<EOF
+You can also type in ${bo}!da${nobo} at the command prompt to re-run the most recent
+command that started with "da". However, make sure this is really the
+command that you want! You may accidentally run the wrong command and
+delete your files or data.
 
 Try this out at the command prompt below.
 
@@ -127,20 +120,19 @@ number of lines of text which
 was created by the tlearn tool.
 EOF
 
-clear
-cat <<EOF
-You can use the <Tab> key at the command prompt to complete (fill out) file
-names if they are unique. I've put back the ${ul}tlearn_text_file${noul} in your directory.
+clear; cat <<EOF
+You can use the <Tab> key at the command prompt to ${ul}complete${noul} (fill out)
+file names if they are unique. I've put back the ${bo}tlearn_text_file${nobo} in
+your directory.
 
-At the prompt below, type in ${ul}ls -l tle${noul} and then hit the <Tab> key.
-You should see the file's name completed for you. Now you can hit
-<Enter> to get the long details of this file.
+At the prompt below, type in ${bo}ls -l tle${nobo} and then hit the <Tab> key.
+You should see the file's name completed for you. Now you can hit <Enter>
+to get the long details of this file.
 
 EOF
 get_Enter "Click back in this pane and hit the <Enter> key to continue: "
 
-clear
-cat <<EOF
+clear; cat <<EOF
 Finally, there are several control characters for moving and editing:
 
 ctrl-A Move to start of line      ESC-D  Delete word to right of cursor
@@ -153,12 +145,11 @@ Try these out at the command prompt below.
 EOF
 get_Enter "Click back in this pane and hit the <Enter> key to continue: "
 
-clear
-cat <<EOF
+clear; cat <<EOF
 That's all for this lesson on the command line. You now know how to edit
 what you have typed on the command line, how to get a list of previous
-commands, how to run previous commands, and how to fill out filenames
-on the command line.
+commands, how to run previous commands, and how to fill out filenames on
+the command line.
 
 Now you can explore the other ${ul}tlearn${noul} lessons.
 
